@@ -4,15 +4,11 @@ chrome.runtime.onMessage.addListener((message, sender) => {
       null,
       { format: "png" },
       (image) => {
-        downloadImage(image);
-      }
+ chrome.downloads.download({
+          url: image,
+          filename: `screenshot-${Date.now()}.png`,
+          saveAs: true
+        });      }
     );
   }
 });
-
-function downloadImage(dataUrl) {
-  const a = document.createElement("a");
-  a.href = dataUrl;
-  a.download = `screenshot-${Date.now()}.png`;
-  a.click();
-}
